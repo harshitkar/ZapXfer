@@ -8,12 +8,9 @@ import {
   TouchableOpacity,
   GestureResponderEvent,
   StyleSheet,
-  Dimensions,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
-// Get screen dimensions for better positioning
-Dimensions.get('window');
+import ProfileScreen from '../screens/ProfileScreen'; // ✅ Import ProfileScreen
 
 // Placeholder Screens
 const HomeScreen = () => (
@@ -25,12 +22,6 @@ const HomeScreen = () => (
 const AddScreen = () => (
   <View style={styles.screen}>
     <Text>Add Files</Text>
-  </View>
-);
-
-const ProfileScreen = () => (
-  <View style={styles.screen}>
-    <Text>Profile</Text>
   </View>
 );
 
@@ -50,9 +41,6 @@ const CustomTabButton = ({
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabNavigator() {
-  // Ensure icons are loaded (important for some versions of react-native-vector-icons)
-  Icon.loadFont();
-
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -62,25 +50,15 @@ export default function BottomTabNavigator() {
           tabBarShowLabel: true,
           tabBarLabelStyle: styles.tabBarLabel,
           tabBarIcon: ({focused, color}) => {
-            // Explicit icon rendering based on route
+            let iconName = '';
+
             if (route.name === 'Home') {
-              return (
-                <Icon
-                  name={focused ? 'home' : 'home-outline'}
-                  size={24}
-                  color={color}
-                />
-              );
+              iconName = focused ? 'home' : 'home-outline';
             } else if (route.name === 'Profile') {
-              return (
-                <Icon
-                  name={focused ? 'account' : 'account-outline'}
-                  size={24}
-                  color={color}
-                />
-              );
+              iconName = focused ? 'account' : 'account-outline';
             }
-            return null;
+
+            return <Icon name={iconName} size={24} color={color} />;
           },
           tabBarActiveTintColor: '#00E676',
           tabBarInactiveTintColor: '#757575',
