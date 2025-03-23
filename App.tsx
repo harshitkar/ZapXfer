@@ -1,20 +1,25 @@
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
-import HomeScreen from './src/screens/HomeScreen';
-import HistoryScreen from './src/screens/HistoryScreen';
-import ProfileScreen from './src/screens/ProfileScreen';
+import {SafeAreaView, StyleSheet} from 'react-native';
+import BottomTabNavigator from './components/BottomTabNavigator';
+import 'react-native-gesture-handler';
+import {enableScreens} from 'react-native-screens';
 
-const Tab = createBottomTabNavigator();
+enableScreens();
 
-export default function App() {
+const App = () => {
   return (
-    <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="History" component={HistoryScreen} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <SafeAreaView style={styles.container}>
+      <BottomTabNavigator />
+    </SafeAreaView>
   );
-}
+};
+
+export default App;
+
+// Styles
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#121212', // Ensures consistent background
+  },
+});
